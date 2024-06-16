@@ -6,7 +6,7 @@
 
 int main() {
 	BattleManager br;
-	Entity e("Kokos", 5);
+	Entity e("Rat", 5);
 	auto res = br.StartBattle(e);
 	br.DisplayBattleResult(res);
 }
