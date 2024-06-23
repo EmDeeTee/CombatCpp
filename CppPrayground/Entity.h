@@ -14,11 +14,13 @@ protected:
 public:
 	std::string m_name;
 	EntityAttributes m_attrs;
-	Entity(std::string name, hp_t hp = 100);
+
+	Entity(std::string name, hp_t hp = 100, EntityAttributes attrs = {1,1,1});
+	Entity();
 	bool Damage(hp_t points);
 	void Heal(hp_t points);
 	hp_t GetHP(void);
 	bool IsAlive(void);
-	hp_t GetNextAttackDamage(); 
+	hp_t GetNextAttackDamage(void); 
 };
 

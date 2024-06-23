@@ -136,6 +136,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Spell.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleManager.h" />
@@ -145,8 +146,10 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="InventoryItem.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PredefinedEntities.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="types.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

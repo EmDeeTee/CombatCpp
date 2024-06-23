@@ -6,7 +6,7 @@
 
 class Player : public Entity {
 public:
-	Player() : Entity("Player", 100) { }
+	Player() : Entity("Player", 100, {2,1,0}) { }
 	void ShowInventory(void);
 };
 

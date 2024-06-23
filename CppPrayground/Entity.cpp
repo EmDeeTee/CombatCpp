@@ -1,10 +1,15 @@
 #include <algorithm>
 
 #include "Entity.h"
+#include "Util.h"
 
-Entity::Entity(std::string name, hp_t hp) {
+Entity::Entity(std::string name, hp_t hp, EntityAttributes attrs) {
 	m_name = name;
+    m_attrs = attrs;
 	_hp = hp;
+}
+
+Entity::Entity() {
 }
 
 /// <summary>
@@ -37,6 +42,7 @@ bool Entity::IsAlive(void) {
 	return _hp > 0;
 }
 
-hp_t Entity::GetNextAttackDamage() {
-	return m_attrs.str * 2;
+hp_t Entity::GetNextAttackDamage(void) {
+    hp_t dmg = m_attrs.str * 2;
+    return Util::RandomRangeInt(dmg - 1, dmg);
 }

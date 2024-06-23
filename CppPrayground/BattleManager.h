@@ -8,8 +8,16 @@
 
 class BattleManager {
 public:
-	BattleResult StartBattle(Entity& enemy);
-	void DisplayBattleResult(BattleResult& br);
-	void NextTurn(BattleResult& br, Entity& enemy);
+	BattleManager(const Entity& enemy);
+	void StartBattle(void);
+	void DisplayBattleResult(void);
+	void NextTurn(void);
+	hp_t AttackPlayer(void);
+	hp_t PlayerAttack(void);
+private:
+	BattleResult _br = {0};
+	Entity _enemy;
+
+	bool _HandleChoice();
 };
 
