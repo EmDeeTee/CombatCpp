@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player g_player = Player();
+Player gPlayer = Player();
 
 void Player::ShowInventory(void) {
 	printf("Inventory");

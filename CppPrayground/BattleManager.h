@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <Windows.h>
 
 #include "types.h"
 #include "Entity.h"
@@ -15,9 +16,9 @@ public:
 	hp_t AttackPlayer(void);
 	hp_t PlayerAttack(void);
 private:
-	BattleResult _br = {0};
-	Entity _enemy;
+	BattleResult mBr = {0};
+	Entity mEnemy;
 
-	bool _HandleChoice();
+	bool _HandleChoice(void);
 };
 

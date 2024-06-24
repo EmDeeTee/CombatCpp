@@ -10,5 +10,5 @@ public:
 	void ShowInventory(void);
 };
 
-extern Player g_player;
+extern Player gPlayer;
 

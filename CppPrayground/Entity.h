@@ -8,12 +8,12 @@
 
 class Entity {
 private:
-	hp_t _hp = 0;
+	hp_t mHp = 0;
 protected:
-	std::vector<InventoryItem> _loot;
+	std::vector<InventoryItem> mLoot;
 public:
-	std::string m_name;
-	EntityAttributes m_attrs;
+	std::string mName;
+	EntityAttributes mAttrs;
 
 	Entity(std::string name, hp_t hp = 100, EntityAttributes attrs = {1,1,1});
 	Entity();

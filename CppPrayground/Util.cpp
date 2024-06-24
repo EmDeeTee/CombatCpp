@@ -5,7 +5,7 @@
 
 // NOTE: I'm quite unsure of this solution. I don't think it is actually 50%
 // since it's not uniform and uses the std C lib
-bool Util::Chance50() {
+bool Util::Chance50(void) {
     return rand() % 2;
 }
 

@@ -7,38 +7,38 @@
 #include "Player.h"
 #include "Game.h"
 
-BattleManager::BattleManager(const Entity& enemy) : _enemy(enemy) {
+BattleManager::BattleManager(const Entity& enemy) : mEnemy(enemy) {
 }
 
 // TODO: Add speed based initiative
 // TODO: Implement dodge functionality
 void BattleManager::StartBattle(void) {
-    printf("You are in a battle with %s!\n", _enemy.m_name.c_str());
+    printf("You are in a battle with %s!\n", mEnemy.mName.c_str());
 
-    if (_enemy.m_attrs.spd > g_player.m_attrs.spd) {
+    if (mEnemy.mAttrs.spd > gPlayer.mAttrs.spd) {
         Game::Notify(std::format("The enemy was faster and hits you for {}", AttackPlayer()), true);
     }
 
-    while (_enemy.IsAlive()) {
+    while (mEnemy.IsAlive()) {
         NextTurn();
-        _br.turns++;
+        mBr.turns++;
     }
-    _br.playerWon = true;
+    mBr.playerWon = true;
 }
 
 void BattleManager::DisplayBattleResult(void) {
     printf("===== Battle Result =====\n");
-    printf("You have inflicted %u damage\n", _br.damageInflicted);
-    printf("You have taken %u damage\n", _br.damageTaken);
-    printf("You have hit the enemy %u times\n", _br.hits);
-    printf("\tThis results in an average of %u damage/hit\n", _br.damageInflicted / _br.hits);
-    printf("The battle lasted for %u turns\n", _br.turns);
+    printf("You have inflicted %u damage\n", mBr.damageInflicted);
+    printf("You have taken %u damage\n", mBr.damageTaken);
+    printf("You have hit the enemy %u times\n", mBr.hits);
+    printf("\tThis results in an average of %u damage/hit\n", mBr.damageInflicted / mBr.hits);
+    printf("The battle lasted for %u turns\n", mBr.turns);
 }
 
-void BattleManager::NextTurn() {   
+void BattleManager::NextTurn(void) {
     printf("===============================\n");
-    printf("%s HP: %u\n", _enemy.m_name.c_str(), _enemy.GetHP());
-    printf("Your HP: %u\n", g_player.GetHP());
+    printf("%s HP: %u\n", mEnemy.mName.c_str(), mEnemy.GetHP());
+    printf("Your HP: %u\n", gPlayer.GetHP());
     printf("===============================\n");
     printf("What would you like to do?\n1 - Attack with your main weapon\n2 - Cast a spell\n3 - Flee\n");
 
@@ -48,22 +48,22 @@ void BattleManager::NextTurn() {
 }
 
 hp_t BattleManager::AttackPlayer(void) {
-    hp_t dmg = _enemy.GetNextAttackDamage(); 
-    g_player.Damage(dmg);
-    _br.damageTaken += dmg;
+    hp_t dmg = mEnemy.GetNextAttackDamage(); 
+    gPlayer.Damage(dmg);
+    mBr.damageTaken += dmg;
     return dmg;
 }
 
 hp_t BattleManager::PlayerAttack(void) {
-    hp_t dmg = g_player.GetNextAttackDamage();
-    _enemy.Damage(dmg);
-    _br.hits++;
-    _br.damageInflicted += dmg;
+    hp_t dmg = gPlayer.GetNextAttackDamage();
+    mEnemy.Damage(dmg);
+    mBr.hits++;
+    mBr.damageInflicted += dmg;
     return dmg;
     //Game::Notify("You hit " + _enemy.m_name + " for " + std::to_string(dmg));
 }
 
-bool BattleManager::_HandleChoice() {
+bool BattleManager::_HandleChoice(void) {
     int choice = 0;
     std::cin >> choice;
 
@@ -72,7 +72,7 @@ bool BattleManager::_HandleChoice() {
     switch (choice)
     {
     case 1:
-        std::cout << "You hit " << _enemy.m_name << " for " << PlayerAttack() << "\n";
+        std::cout << "You hit " << mEnemy.mName << " for " << PlayerAttack() << "\n";
         std::cout << "You got hit for " << AttackPlayer() << "\n";
         return true;
     case 2:
