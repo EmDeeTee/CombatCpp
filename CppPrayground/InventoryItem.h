@@ -4,6 +4,6 @@
 
 class InventoryItem {
 public:
-	std::string name;
+	std::string mName;
 };
 

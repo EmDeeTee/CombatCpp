@@ -6,17 +6,23 @@
 #include "BattleManager.h"
 #include "Player.h"
 #include "Game.h"
+#include "Util.h"
 
 BattleManager::BattleManager(const Entity& enemy) : mEnemy(enemy) {
 }
 
-// TODO: Add speed based initiative
 // TODO: Implement dodge functionality
 void BattleManager::StartBattle(void) {
     printf("You are in a battle with %s!\n", mEnemy.mName.c_str());
 
     if (mEnemy.mAttrs.spd > gPlayer.mAttrs.spd) {
-        Game::Notify(std::format("The enemy was faster and hits you for {}", AttackPlayer()), true);
+        AttackInfo enemyAttackInfo = Attack(mEnemy, gPlayer);
+        if (enemyAttackInfo.wasDodged) {
+            Game::Notify("The enemy was faster, but you dodged", true);
+        }
+        else {
+            Game::Notify(std::format("The enemy was faster and hits you for {}", enemyAttackInfo.dmg), true);
+        }
     }
 
     while (mEnemy.IsAlive()) {
@@ -47,20 +53,28 @@ void BattleManager::NextTurn(void) {
     }
 }
 
-hp_t BattleManager::AttackPlayer(void) {
-    hp_t dmg = mEnemy.GetNextAttackDamage(); 
-    gPlayer.Damage(dmg);
-    mBr.damageTaken += dmg;
-    return dmg;
-}
+AttackInfo BattleManager::Attack(Entity& attacker, Entity& attacked) {
+    AttackInfo ret = { 0 };
 
-hp_t BattleManager::PlayerAttack(void) {
-    hp_t dmg = gPlayer.GetNextAttackDamage();
-    mEnemy.Damage(dmg);
-    mBr.hits++;
-    mBr.damageInflicted += dmg;
-    return dmg;
-    //Game::Notify("You hit " + _enemy.m_name + " for " + std::to_string(dmg));
+    if ( (attacked.mAttrs.dod > attacker.mAttrs.spd) && Util::Chance50()) {
+        ret.wasDodged = true;
+        return ret;
+    }
+
+    hp_t dmg = attacker.GetNextAttackDamage();
+    attacked.Damage(dmg);
+
+    if (attacker.IsPlayer()) {
+        mBr.damageInflicted += dmg;
+        mBr.hits++;
+    }
+    else {
+        mBr.damageTaken += dmg;
+    }
+
+    ret.dmg = dmg;
+
+    return ret;
 }
 
 bool BattleManager::_HandleChoice(void) {
@@ -72,8 +86,8 @@ bool BattleManager::_HandleChoice(void) {
     switch (choice)
     {
     case 1:
-        std::cout << "You hit " << mEnemy.mName << " for " << PlayerAttack() << "\n";
-        std::cout << "You got hit for " << AttackPlayer() << "\n";
+        std::cout << "You hit " << mEnemy.mName << ": " << Attack(gPlayer, mEnemy) << "\n";
+        std::cout << "You got hit: " << Attack(mEnemy, gPlayer) << "\n";
         return true;
     case 2:
         // TODO: Implement

@@ -6,6 +6,7 @@
 #include "types.h"
 #include "Entity.h"
 #include "BattleResult.h"
+#include "AttackInfo.h"
 
 class BattleManager {
 public:
@@ -13,8 +14,7 @@ public:
 	void StartBattle(void);
 	void DisplayBattleResult(void);
 	void NextTurn(void);
-	hp_t AttackPlayer(void);
-	hp_t PlayerAttack(void);
+	AttackInfo Attack(Entity& attacker, Entity& attacked);
 private:
 	BattleResult mBr = {0};
 	Entity mEnemy;

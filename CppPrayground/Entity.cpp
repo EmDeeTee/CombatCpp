@@ -2,8 +2,9 @@
 
 #include "Entity.h"
 #include "Util.h"
+#include "Player.h"
 
-Entity::Entity(std::string name, hp_t hp, EntityAttributes attrs) {
+Entity::Entity(const std::string& name, const hp_t& hp, const EntityAttributes& attrs) {
 	mName = name;
     mAttrs = attrs;
 	mHp = hp;
@@ -45,4 +46,8 @@ bool Entity::IsAlive(void) {
 hp_t Entity::GetNextAttackDamage(void) {
     hp_t dmg = mAttrs.str * 2;
     return Util::RandomRangeInt(dmg - 1, dmg);
+}
+
+bool Entity::IsPlayer(void) const {
+    return mName == gPlayer.mName;
 }

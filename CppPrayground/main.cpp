@@ -5,9 +5,10 @@
 #include "BattleManager.h"
 #include "PredefinedEntities.h"
 #include "Util.h"
+#include "Game.h"
 
 int main() {
-	BattleManager br(g_Enities["rat"]);
+	BattleManager br(Game::GenerateEncounter());
 	br.StartBattle();
 	br.DisplayBattleResult();
 }
