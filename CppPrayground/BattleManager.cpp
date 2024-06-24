@@ -91,7 +91,7 @@ bool BattleManager::_HandleChoice(void) {
         return true;
     case 2:
         // TODO: Implement
-        throw new std::exception("Not implemented");
+        
         break;
     case 3:
         // TODO: Implement

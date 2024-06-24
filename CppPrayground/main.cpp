@@ -6,6 +6,7 @@
 #include "PredefinedEntities.h"
 #include "Util.h"
 #include "Game.h"
+#include "Player.h"
 
 int main() {
 	BattleManager br(Game::GenerateEncounter());

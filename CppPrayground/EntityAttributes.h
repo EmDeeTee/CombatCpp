@@ -9,3 +9,23 @@ struct EntityAttributes {
 	attr_t spd = 1; // Who acts first in a battle? Higher speed (spd) always gets the first turn
 	attr_t dod = 1; // Dodge
 };
+
+inline const uint32_t gcAttrCount = 3;
+
+inline EntityAttributes& operator+=(EntityAttributes& lhs, const EntityAttributes& rhs) {
+	static_assert(gcAttrCount == 3, "Not every EntityAttribute was handled in operator overload");
+
+	lhs.str += rhs.str;
+	lhs.spd += rhs.spd;
+	lhs.dod += rhs.dod;
+	return lhs;
+}
+
+inline EntityAttributes& operator-=(EntityAttributes& lhs, const EntityAttributes& rhs) {
+	static_assert(gcAttrCount == 3, "Not every EntityAttribute was handled in operator overload");
+
+	lhs.str -= rhs.str;
+	lhs.spd -= rhs.spd;
+	lhs.dod -= rhs.dod;
+	return lhs;
+}

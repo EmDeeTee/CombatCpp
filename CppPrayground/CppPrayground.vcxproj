@@ -148,6 +148,7 @@
     <ClInclude Include="InventoryItem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PredefinedEntities.h" />
+    <ClInclude Include="PredefinedSpells.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="Util.h" />

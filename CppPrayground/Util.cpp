@@ -3,10 +3,12 @@
 
 #include "Util.h"
 
-// NOTE: I'm quite unsure of this solution. I don't think it is actually 50%
-// since it's not uniform and uses the std C lib
 bool Util::Chance50(void) {
-    return rand() % 2;
+    static std::random_device rd;  
+    static std::mt19937 gen(rd());
+    static std::bernoulli_distribution d(0.5);
+
+    return d(gen);
 }
 
 int Util::RandomRangeInt(int min, int max) {
